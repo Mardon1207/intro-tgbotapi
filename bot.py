@@ -28,4 +28,16 @@ def getUpdates() -> dict:
     
     return False
 
-print(getUpdates())
+
+def sendMessage(chat_id: str, text: str) -> None:
+    '''sending messages'''
+    url = f"{BASE_URL}{TOKEN}/sendMessage"
+
+    payload = {
+        'chat_id': chat_id,
+        'text': text
+    }
+
+    requests.get(url=url, params=payload)
+
+sendMessage('1258594598', 'hi from bot!')
