@@ -1,4 +1,5 @@
 import requests
+import time
 
 
 BASE_URL = 'https://api.telegram.org/bot'
@@ -38,6 +39,21 @@ def sendMessage(chat_id: str, text: str) -> None:
         'text': text
     }
 
-    requests.get(url=url, params=payload)
+    response = requests.get(url=url, params=payload)
 
-sendMessage('1258594598', 'hi from bot!')
+    return response.status_code
+
+
+def echo():
+    while True:
+
+        last_update = getUpdates()['result'][-1]
+        
+        chat_id = last_update['message']['chat']['id']
+        text = last_update['message']['text']
+
+        sendMessage(chat_id, text)
+
+        time.sleep(0.5)
+
+echo()
