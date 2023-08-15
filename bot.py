@@ -16,4 +16,16 @@ def getMe() -> dict:
     
     return False
 
-print(getMe())
+
+def getUpdates() -> dict:
+    '''getting info about the bot'''
+    url = f"{BASE_URL}{TOKEN}/getUpdates"
+
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        return response.json()
+    
+    return False
+
+print(getUpdates())
