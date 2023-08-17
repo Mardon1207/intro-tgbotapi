@@ -1,9 +1,8 @@
 import requests
 import time
 
-
 BASE_URL = 'https://api.telegram.org/bot'
-TOKEN    = "6602447524:AAFuq2qNvn61P7j5ocEdDxoRn0jw8TVAO4Y"
+TOKEN    = "6190918955:AAH6JhL8iWSkLg77mvBbMUJQ1QqLahJGD_g"
 
 
 def getMe() -> dict:
@@ -45,14 +44,18 @@ def sendMessage(chat_id: str, text: str) -> None:
 
 
 def echo():
+    uzunlik=len(getUpdates()['result'])
     while True:
-
-        last_update = getUpdates()['result'][-1]
         
-        chat_id = last_update['message']['chat']['id']
-        text = last_update['message']['text']
+        if uzunlik !=len(getUpdates()['result']):
 
-        sendMessage(chat_id, text)
+            last_update = getUpdates()['result'][-1]
+            
+            chat_id = getUpdates()['result'][-1]['message']['chat']['id']
+            text = getUpdates()['result'][-1]['message']['text']
+
+            sendMessage(chat_id, text)
+            uzunlik=len(getUpdates()['result'])
 
         time.sleep(0.5)
 
